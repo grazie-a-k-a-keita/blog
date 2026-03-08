@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+
+import { ModeToggle } from "@/components/mode-toggle";
+import { buttonVariants } from "@/components/ui/button";
+import GitHubIcon from "../asset/GitHub_light.svg";
+import Logo from "../asset/logo.png";
+import XIcon from "../asset/x.svg";
+---
+
+<header
+	class="bg-accent/50 fixed top-8 left-1/2 z-50 flex w-fit -translate-x-1/2 items-center gap-4 rounded-full px-6 py-4 backdrop-blur"
+>
+	<a
+		href="/"
+		class={buttonVariants({
+			size: "icon",
+			variant: "ghost",
+			className: "size-10 rounded-full",
+		})}><Image src={Logo} class="size-10 rounded-full" alt="Logo" /></a
+	>
+	<a href="/blog" class={buttonVariants({ variant: "ghost" })}>blog</a>
+	<a
+		href="https://github.com/grazie-a-k-a-keita"
+		rel="noreferrer"
+		target="_blank"
+		class={buttonVariants({ variant: "ghost", size: "icon" })}
+	>
+		<GitHubIcon class="size-4 dark:invert" />
+	</a>
+	<a
+		href="https://x.com/grazie_Engineer"
+		rel="noreferrer"
+		target="_blank"
+		class={buttonVariants({ variant: "ghost", size: "icon" })}
+	>
+		<XIcon class="size-4 dark:invert" />
+	</a>
+	<ModeToggle client:load />
+</header>

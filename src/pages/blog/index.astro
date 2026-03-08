@@ -1,0 +1,37 @@
+---
+import "../../styles/global.css";
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+import { Button } from "@/components/ui/button";
+import Layout from "../../layouts/main.astro";
+
+const posts = (await getCollection("blog")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<Layout content={{ title: "blog | GrazieHub" }}>
+	<div class="space-y-12">
+		<section class="space-y-8">
+			<h1 class="text-xl font-bold">blog</h1>
+			<ul class="list-outside list-disc space-y-2">
+				{
+					posts.map((post) => (
+						<li class="ms-4">
+							<a
+								href={`/blog/${post.id}`}
+								class="text-foreground/50 hover:text-foreground transition-colors"
+							>
+								{post.data.title}
+								{dayjs(post.data.pubDate).format(
+									"（YYYY-MM-DD）",
+								)}
+							</a>
+							<p class="text-muted-foreground text-sm" />
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</div>
+</Layout>

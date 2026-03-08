@@ -1,0 +1,61 @@
+---
+import dayjs from "dayjs";
+import certification from "../content/certification/meta.json";
+import skill from "../content/skill/meta.json";
+import Layout from "../layouts/main.astro";
+import "../styles/global.css";
+
+const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
+---
+
+<Layout content={{ title: "GrazieHub" }}>
+	<div class="space-y-12">
+		<section class="[&>p]:text-muted-foreground space-y-4">
+			<h1 class="text-xl font-bold">Ohno Keita</h1>
+			<p>オオノケイタ（エンジニア）の個人サイトです 🦖</p>
+		</section>
+		<section class="[&>p]:text-muted-foreground space-y-4">
+			<h2 class="text-lg font-bold">About</h2>
+			<p>
+				大学卒業後、新卒でIT企業に入社。SIerで様々なプロジェクトに携わってました。現在は事業会社に転職しWebアプリケーションの開発をしています。
+			</p>
+			<p>
+				現在は{workYears}年目のエンジニアです。
+			</p>
+			<p>
+				TypeScriptが好きで、フロントエンドやアーキテクチャ設計などに興味があります。
+			</p>
+		</section>
+		<section class="space-y-4">
+			<h2 class="text-lg font-bold">Skill</h2>
+			<ul class="flex flex-wrap gap-4">
+				{
+					skill.map((s) => (
+						<li>
+							<div class="bg-muted flex items-center gap-2 rounded-md px-3 py-2">
+								<img
+									src={`/images/skill/${s.icon}.svg`}
+									alt={s.name}
+									class="size-4"
+								/>
+								<span class="text-sm">{s.name}</span>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+		<section class="space-y-4">
+			<h2 class="text-lg font-bold">Certification</h2>
+			<ul class="list-inside list-disc space-y-2">
+				{
+					certification.map((c) => (
+						<li class="text-muted-foreground">
+							<span>{c.name}</span>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+	</div>
+</Layout>

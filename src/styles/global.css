@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -10,6 +10,7 @@
 
 @theme inline {
 	--font-noto: "Noto Sans JP", sans-serif;
+	--font-mono: "Roboto Mono", monospace;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);

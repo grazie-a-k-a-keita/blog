@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 
 import { ModeToggle } from "@/components/mode-toggle";
 import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import GitHubIcon from "../asset/GitHub_light.svg";
 import Logo from "../asset/logo.png";
 import XIcon from "../asset/x.svg";
@@ -13,28 +14,40 @@ import XIcon from "../asset/x.svg";
 >
 	<a
 		href="/"
-		class={buttonVariants({
-			size: "icon",
-			variant: "ghost",
-			className: "size-10 rounded-full",
-		})}><Image src={Logo} class="size-10 rounded-full" alt="Logo" /></a
+		class={cn(
+			buttonVariants({
+				size: "icon",
+				variant: "ghost",
+				className: "size-10",
+			}),
+			"rounded-full",
+		)}><Image src={Logo} class="size-10 rounded-full" alt="Logo" /></a
 	>
-	<a href="/blog" class={buttonVariants({ variant: "ghost" })}>blog</a>
+	<a
+		href="/blog"
+		class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}>blog</a
+	>
 	<a
 		href="https://github.com/grazie-a-k-a-keita"
 		rel="noreferrer"
 		target="_blank"
-		class={buttonVariants({ variant: "ghost", size: "icon" })}
+		class={cn(
+			buttonVariants({ variant: "ghost", size: "icon" }),
+			"rounded-full",
+		)}
 	>
-		<GitHubIcon class="size-4 dark:invert" />
+		<GitHubIcon class="size-4 dark:invert" width={16} height={16} />
 	</a>
 	<a
 		href="https://x.com/grazie_Engineer"
 		rel="noreferrer"
 		target="_blank"
-		class={buttonVariants({ variant: "ghost", size: "icon" })}
+		class={cn(
+			buttonVariants({ variant: "ghost", size: "icon" }),
+			"rounded-full",
+		)}
 	>
-		<XIcon class="size-4 dark:invert" />
+		<XIcon class="size-4 dark:invert" width={16} height={16} />
 	</a>
 	<ModeToggle client:load />
 </header>

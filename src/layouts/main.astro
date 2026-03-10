@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import Footer from "../components/footer.astro";
 import Header from "../components/header.astro";
 
 const { content } = Astro.props;
@@ -43,16 +44,10 @@ const { content } = Astro.props;
 		<title>{content.title}</title>
 	</head>
 	<body
-		class="font-noto bg-grid box container mx-auto min-h-dvh max-w-4xl overflow-y-scroll px-8 pt-40 pb-16"
-		data-dot={true}
+		class="font-noto container mx-auto min-h-dvh max-w-4xl overflow-y-scroll px-8 pt-40"
 	>
 		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>
-
-<style scoped>
-	body[data-dot="true"] {
-		@apply bg-[radial-gradient(circle,var(--color-muted)_1px,transparent_1px)] bg-size-[16px_16px];
-	}
-</style>

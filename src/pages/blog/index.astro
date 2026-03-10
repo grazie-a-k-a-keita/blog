@@ -2,7 +2,6 @@
 import "../../styles/global.css";
 import { getCollection } from "astro:content";
 import dayjs from "dayjs";
-import { Button } from "@/components/ui/button";
 import Layout from "../../layouts/main.astro";
 
 const posts = (await getCollection("blog")).sort(
@@ -17,15 +16,17 @@ const posts = (await getCollection("blog")).sort(
 			<ul class="list-outside list-disc space-y-2">
 				{
 					posts.map((post) => (
-						<li class="ms-4">
+						<li class="ms-5">
 							<a
 								href={`/blog/${post.id}`}
 								class="text-foreground/50 hover:text-foreground transition-colors"
 							>
 								{post.data.title}
-								{dayjs(post.data.pubDate).format(
-									"（YYYY-MM-DD）",
-								)}
+								<span class="font-mono">
+									{dayjs(post.data.pubDate).format(
+										"（YYYY-MM-DD）",
+									)}
+								</span>
 							</a>
 							<p class="text-muted-foreground text-sm" />
 						</li>

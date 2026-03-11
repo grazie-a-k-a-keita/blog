@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
-
 import { ModeToggle } from "@/components/mode-toggle";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { appConfig } from "@/shared/app.config";
 import GitHubIcon from "../asset/GitHub_light.svg";
 import Logo from "../asset/logo.png";
 import XIcon from "../asset/x.svg";
@@ -28,7 +28,7 @@ import XIcon from "../asset/x.svg";
 		class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}>blog</a
 	>
 	<a
-		href="https://github.com/grazie-a-k-a-keita"
+		href={appConfig.gitHubUrl}
 		rel="noreferrer"
 		target="_blank"
 		class={cn(
@@ -39,7 +39,7 @@ import XIcon from "../asset/x.svg";
 		<GitHubIcon class="size-4 dark:invert" width={16} height={16} />
 	</a>
 	<a
-		href="https://x.com/grazie_Engineer"
+		href={appConfig.xUrl}
 		rel="noreferrer"
 		target="_blank"
 		class={cn(

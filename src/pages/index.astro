@@ -4,11 +4,14 @@ import certification from "../content/certification/meta.json";
 import skill from "../content/skill/meta.json";
 import Layout from "../layouts/main.astro";
 import "../styles/global.css";
+import { appConfig } from "@/shared/app.config";
 
 const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 ---
 
-<Layout content={{ title: "GrazieHub" }}>
+<Layout
+	content={{ title: appConfig.title, description: appConfig.description }}
+>
 	<div class="space-y-12">
 		<section class="[&>p]:text-muted-foreground space-y-4">
 			<h1 class="text-xl font-bold">Ohno Keita</h1>
@@ -47,10 +50,10 @@ const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 		</section>
 		<section class="space-y-4">
 			<h2 class="text-lg font-bold">Certification</h2>
-			<ul class="list-inside list-disc space-y-2">
+			<ul class="list-outside list-disc space-y-3">
 				{
 					certification.map((c) => (
-						<li class="text-muted-foreground">
+						<li class="text-muted-foreground ms-6">
 							<span>{c.name}</span>
 						</li>
 					))

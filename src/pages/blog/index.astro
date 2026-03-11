@@ -2,6 +2,7 @@
 import "../../styles/global.css";
 import { getCollection } from "astro:content";
 import dayjs from "dayjs";
+import { appConfig } from "@/shared/app.config";
 import Layout from "../../layouts/main.astro";
 
 const posts = (await getCollection("blog")).sort(
@@ -9,14 +10,16 @@ const posts = (await getCollection("blog")).sort(
 );
 ---
 
-<Layout content={{ title: "blog | GrazieHub" }}>
+<Layout
+	content={{ title: `blog | ${appConfig.title}`, description: "ブログ一覧" }}
+>
 	<div class="space-y-12">
 		<section class="space-y-8">
 			<h1 class="text-xl font-bold">blog</h1>
-			<ul class="list-outside list-disc space-y-2">
+			<ul class="list-outside list-disc space-y-3">
 				{
 					posts.map((post) => (
-						<li class="ms-5">
+						<li class="ms-6">
 							<a
 								href={`/blog/${post.id}`}
 								class="text-foreground/50 hover:text-foreground transition-colors"

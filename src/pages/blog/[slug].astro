@@ -1,6 +1,8 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import dayjs from "dayjs";
+import { Calendar, RefreshCcw } from "lucide-react";
+import { appConfig } from "@/shared/app.config";
 import Prose from "../../components/prose.astro";
 import Layout from "../../layouts/main.astro";
 
@@ -18,13 +20,37 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout content={{ title: `${post.data.title} | GrazieHub` }}>
+<Layout
+	content={{
+		title: `${post.data.title} | ${appConfig.title}`,
+		description: post.data.description,
+	}}
+>
 	<div class="space-y-16">
 		<div class="space-y-8 text-center">
 			<h1 class="text-2xl font-bold">{post.data.title}</h1>
-			<p class="text-muted-foreground font-mono">
-				{dayjs(post.data.pubDate).format("YYYY-MM-DD")}
-			</p>
+			<div
+				class="text-muted-foreground flex items-center justify-center gap-6"
+			>
+				<div class="flex items-center gap-2">
+					{
+						post.data.updatedDate !== undefined ? (
+							<RefreshCcw className="size-4" />
+						) : (
+							<Calendar className="size-4" />
+						)
+					}
+					<p class="text-muted-foreground font-mono">
+						{
+							dayjs(
+								post.data.updatedDate !== undefined
+									? post.data.updatedDate
+									: post.data.pubDate,
+							).format("YYYY-MM-DD")
+						}
+					</p>
+				</div>
+			</div>
 		</div>
 		<Prose>
 			<Content />

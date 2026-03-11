@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
-
+@import "@fontsource-variable/noto-sans-jp";
+@import "@fontsource-variable/jetbrains-mono";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -9,8 +9,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-	--font-noto: "Noto Sans JP", sans-serif;
-	--font-mono: "Roboto Mono", monospace;
+	--font-sans: "Noto Sans JP Variable", sans-serif;
+	--font-mono: "JetBrains Mono Variable", monospace;
 	--radius-sm: calc(var(--radius) - 4px);
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);

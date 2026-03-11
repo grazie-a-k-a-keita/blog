@@ -38,13 +38,13 @@ const { content } = Astro.props;
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={content.description} />
 		<link rel="icon" href="/favicon.ico" />
 		<title>{content.title}</title>
 	</head>
 	<body
-		class="font-noto container mx-auto min-h-dvh max-w-4xl overflow-y-scroll px-8 pt-40"
+		class="container mx-auto min-h-dvh max-w-4xl overflow-y-scroll px-8 pt-40 font-sans"
 	>
 		<Header />
 		<slot />

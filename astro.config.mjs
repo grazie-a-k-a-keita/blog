@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode, { astroExpressiveCode } from "astro-expressive-code";
-import { appConfig } from "@/shared/app.config";
+import { appConfig } from "./src/shared/app.config";
 
 // https://astro.build/config
 export default defineConfig({

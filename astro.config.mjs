@@ -6,6 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode, { astroExpressiveCode } from "astro-expressive-code";
+import rehypeExternalLinks from "rehype-external-links";
 import { appConfig } from "./src/shared/app.config";
 
 // https://astro.build/config
@@ -13,7 +14,14 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  markdown: {},
+  markdown: {
+    rehypePlugins: [
+      [
+        rehypeExternalLinks,
+        { target: "_blank", rel: ["noopener", "noreferrer"] },
+      ],
+    ],
+  },
   site: appConfig.siteUrl,
   integrations: [
     react(),

@@ -7,6 +7,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import expressiveCode, { astroExpressiveCode } from "astro-expressive-code";
 import rehypeExternalLinks from "rehype-external-links";
+import remarkLinkCard from "remark-link-card-plus";
 import { appConfig } from "./src/shared/app.config";
 
 // https://astro.build/config
@@ -15,6 +16,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
+    remarkPlugins: [[remarkLinkCard, { cache: true, noThumbnail: true }]],
     rehypePlugins: [
       [
         rehypeExternalLinks,

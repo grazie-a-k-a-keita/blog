@@ -1,0 +1,42 @@
+/* https://github.com/okaryo/remark-link-card-plus */
+
+.remark-link-card-plus__container {
+	@apply rounded-md p-6 my-8 bg-muted/25 hover:bg-muted transition-colors duration-500;
+}
+
+.remark-link-card-plus__card {
+	@apply no-underline;
+}
+
+.remark-link-card-plus__main {
+	@apply space-y-4;
+}
+
+.remark-link-card-plus__content {
+	@apply space-y-2;
+}
+
+.remark-link-card-plus__title {
+	@apply font-bold line-clamp-2;
+}
+
+.remark-link-card-plus__description {
+	@apply text-sm text-muted-foreground line-clamp-2;
+}
+
+.remark-link-card-plus__meta {
+	@apply flex items-center gap-2 text-sm text-muted-foreground;
+}
+
+.remark-link-card-plus__favicon {
+	@apply m-0;
+}
+
+/* .remark-link-card-plus__url {
+} */
+
+/* .remark-link-card-plus__thumbnail {
+} */
+
+/* .remark-link-card-plus__image {
+} */

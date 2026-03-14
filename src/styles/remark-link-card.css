@@ -1,7 +1,8 @@
 /* https://github.com/okaryo/remark-link-card-plus */
 
 .remark-link-card-plus__container {
-	@apply rounded-md p-6 my-8 bg-muted/25 hover:bg-muted transition-colors duration-500;
+	@apply rounded-md my-8 bg-muted lg:bg-muted/25 hover:bg-muted transition-colors duration-500;
+	@apply overflow-hidden focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50;
 }
 
 .remark-link-card-plus__card {
@@ -9,7 +10,7 @@
 }
 
 .remark-link-card-plus__main {
-	@apply space-y-4;
+	@apply space-y-4 p-6;
 }
 
 .remark-link-card-plus__content {

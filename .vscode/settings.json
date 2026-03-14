@@ -4,6 +4,9 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll.biome": "explicit"
 	},
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
 	"[astro]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
@@ -13,5 +16,5 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"cSpell.words": ["Keita", "noto", "Ohno", "shadcn"]
+	"cSpell.words": ["fontsource", "Keita", "noto", "Ohno", "oklch", "shadcn"]
 }

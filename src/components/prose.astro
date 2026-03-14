@@ -1,1 +1,11 @@
-<div class="prose dark:prose-invert mx-auto max-w-4xl"><slot /></div>
+---
+import { cn } from "@/lib/utils";
+---
+
+<div
+	class={cn(
+        "prose dark:prose-invert mx-auto max-w-4xl",
+        "prose-img:rounded-sm")}
+>
+	<slot />
+</div>

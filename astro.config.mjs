@@ -12,31 +12,31 @@ import { appConfig } from "./src/shared/app.config";
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  markdown: {
-    remarkPlugins: [[remarkLinkCard, { cache: true, noThumbnail: true }]],
-    rehypePlugins: [
-      [
-        rehypeExternalLinks,
-        { target: "_blank", rel: ["noopener", "noreferrer"] },
-      ],
-    ],
-  },
-  site: appConfig.siteUrl,
-  integrations: [
-    react(),
-    sitemap(),
-    expressiveCode(),
-    astroExpressiveCode({
-      themes: ["github-light", "github-dark"],
-      themeCssSelector: (theme) => {
-        if (theme.type === "dark") return ".dark";
-        return ":root";
-      },
-      useDarkModeMediaQuery: false,
-    }),
-  ],
-  adapter: cloudflare(),
+	vite: {
+		plugins: [tailwindcss()],
+	},
+	markdown: {
+		remarkPlugins: [[remarkLinkCard, { cache: true, noThumbnail: true }]],
+		rehypePlugins: [
+			[
+				rehypeExternalLinks,
+				{ target: "_blank", rel: ["noopener", "noreferrer"] },
+			],
+		],
+	},
+	site: appConfig.siteUrl,
+	integrations: [
+		react(),
+		sitemap(),
+		expressiveCode(),
+		astroExpressiveCode({
+			themes: ["github-light", "github-dark"],
+			themeCssSelector: (theme) => {
+				if (theme.type === "dark") return ".dark";
+				return ":root";
+			},
+			useDarkModeMediaQuery: false,
+		}),
+	],
+	adapter: cloudflare(),
 });

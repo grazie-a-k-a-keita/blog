@@ -13,6 +13,7 @@ import XIcon from "../asset/x.svg";
 	class="bg-accent/50 fixed top-8 left-1/2 z-50 flex w-fit -translate-x-1/2 items-center gap-4 rounded-full px-6 py-4 backdrop-blur"
 >
 	<a
+		title="logo"
 		href="/"
 		class={cn(
 			buttonVariants({
@@ -21,13 +22,16 @@ import XIcon from "../asset/x.svg";
 				className: "size-10",
 			}),
 			"rounded-full",
-		)}><Image src={Logo} class="size-10 rounded-full" alt="Logo" /></a
+		)}
+		><Image src={Logo} class="size-10 rounded-full" alt="Logo" /></a
 	>
 	<a
 		href="/blog"
-		class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}>blog</a
+		class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}
+		>blog</a
 	>
 	<a
+		title="github"
 		href={appConfig.gitHubUrl}
 		rel="noreferrer"
 		target="_blank"
@@ -39,6 +43,7 @@ import XIcon from "../asset/x.svg";
 		<GitHubIcon class="size-4 dark:invert" width={16} height={16} />
 	</a>
 	<a
+		title="x"
 		href={appConfig.xUrl}
 		rel="noreferrer"
 		target="_blank"

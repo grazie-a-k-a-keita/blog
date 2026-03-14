@@ -5,7 +5,10 @@
 		"source.fixAll.biome": "explicit"
 	},
 	"[astro]": {
-		"editor.defaultFormatter": "astro-build.astro-vscode"
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"

@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import expressiveCode, { astroExpressiveCode } from "astro-expressive-code";
+import { astroExpressiveCode } from "astro-expressive-code";
 import rehypeExternalLinks from "rehype-external-links";
 import remarkLinkCard from "remark-link-card-plus";
 import { appConfig } from "./src/shared/app.config";
@@ -28,7 +28,6 @@ export default defineConfig({
 	integrations: [
 		react(),
 		sitemap(),
-		expressiveCode(),
 		astroExpressiveCode({
 			themes: ["github-light", "github-dark"],
 			themeCssSelector: (theme) => {

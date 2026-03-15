@@ -8,7 +8,9 @@
 		"preview": "astro preview",
 		"astro": "astro",
 		"format": "biome format . --write",
-		"check": "biome check --write"
+		"check": "biome check --write",
+		"cloudflare:preview": "pnpm astro build && pnpm wrangler pages dev ./dist",
+		"cloudflare:deploy": "astro build && wrangler pages deploy ./dist"
 	},
 	"dependencies": {
 		"@astrojs/cloudflare": "^12.6.12",

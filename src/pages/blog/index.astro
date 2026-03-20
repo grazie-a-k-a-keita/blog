@@ -13,27 +13,24 @@ const posts = (await getCollection("blog")).sort(
 <Layout
 	content={{ title: `blog | ${appConfig.title}`, description: "ブログ一覧" }}
 >
-	<div class="space-y-12">
-		<section class="space-y-8">
-			<h1 class="text-xl font-bold">blog</h1>
-			<ul class="list-outside list-disc space-y-3">
-				{posts.map((post) => (
-						<li class="ms-6">
-							<a
-								href={`/blog/${post.id}`}
-								class="text-foreground/50 hover:text-foreground transition-colors"
-							>
-								{post.data.title}
-								<span class="font-mono">
-									{dayjs(post.data.pubDate).format(
-										"（YYYY-MM-DD）",
-									)}
-								</span>
-							</a>
-							<p class="text-muted-foreground text-sm" />
-						</li>
-					))}
-			</ul>
-		</section>
-	</div>
+	<section class="space-y-8">
+		<h1 class="text-xl font-bold">blog</h1>
+		<ul class="list-outside list-disc space-y-3">
+			{posts.map((post) => (
+				<li class="ms-6">
+					<article>
+						<a
+							href={`/blog/${post.id}`}
+							class="text-foreground/50 hover:text-foreground transition-colors hover:underline hover:bg-primary/10 decoration-primary underline-offset-4"
+						>
+							{post.data.title}
+							<span class="font-mono">
+								{dayjs(post.data.pubDate).format("（YYYY-MM-DD）")}
+							</span>
+						</a>
+					</article>
+				</li>
+			))}
+		</ul>
+	</section>
 </Layout>

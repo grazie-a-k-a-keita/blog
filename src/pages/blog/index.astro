@@ -15,6 +15,7 @@ const posts = (await getCollection("blog")).sort(
 >
 	<section class="space-y-8">
 		<h1 class="text-xl font-bold">blog</h1>
+		<p>勉強したことや日々思ったことを不定期で更新していきます。</p>
 		<ul class="list-outside list-disc space-y-3">
 			{posts.map((post) => (
 				<li class="ms-6">

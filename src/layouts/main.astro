@@ -1,9 +1,11 @@
 ---
 import "../styles/global.css";
+import { appConfig } from "@/shared/app.config";
 import Footer from "../components/footer.astro";
 import Header from "../components/header.astro";
 
 const { content } = Astro.props;
+const url = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!-- mode toggle -->
@@ -37,6 +39,14 @@ if (typeof localStorage !== "undefined") {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content={content.description}>
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content={appConfig.title}>
+		<meta property="og:url" content={url}>
+		<meta property="og:title" content={content.title}>
+		<meta property="og:description" content={content.description}>
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content={content.title}>
+		<meta name="twitter:description" content={content.description}>
 		<link rel="icon" href="/favicon.ico">
 		<title>{content.title}</title>
 	</head>

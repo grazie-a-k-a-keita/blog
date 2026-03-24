@@ -90,7 +90,7 @@ https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Ma
 
 ### 実際に予測してみる
 
-※実行には**Node.js**が必要です！
+※実行には**Node.js**が必要です。
 
 ChromeのDevToolsで以下のコードを実行してみてください。
 
@@ -100,13 +100,13 @@ console.log(
 );
 ```
 
-今回は`js-randomness-predictor`というnpmパッケージを使って、4つの疑似乱数から今後出力される疑似乱数を予測してみます！
+今回は`js-randomness-predictor`というnpmパッケージを使って、4つの疑似乱数から今後出力される疑似乱数を予測してみます。
 
 ```sh
 # パッケージインストール
 npm i js-randomness-predictor
 
-# 予測する！
+# 予測する
 npx js-randomness-predictor --environment chrome --sequence { 先ほどChromeで取得した疑似乱数をコピー } --predictions 10
 
 # ↓↓example

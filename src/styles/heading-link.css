@@ -1,0 +1,19 @@
+.icon-link {
+	@apply ml-2 text-muted-foreground opacity-0 transition-opacity duration-500;
+}
+
+h2:hover .icon-link,
+h3:hover .icon-link,
+h4:hover .icon-link,
+h5:hover .icon-link,
+h6:hover .icon-link {
+	@apply opacity-100;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply scroll-mt-40;
+}

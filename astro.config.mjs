@@ -6,7 +6,9 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import { astroExpressiveCode } from "astro-expressive-code";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
+import rehypeSlug from "rehype-slug";
 import remarkLinkCard from "remark-link-card-plus";
 import { appConfig } from "./src/shared/app.config";
 
@@ -18,9 +20,22 @@ export default defineConfig({
 	markdown: {
 		remarkPlugins: [[remarkLinkCard, { cache: true, noThumbnail: true }]],
 		rehypePlugins: [
+			rehypeSlug,
 			[
 				rehypeExternalLinks,
 				{ target: "_blank", rel: ["noopener", "noreferrer"] },
+			],
+			[
+				rehypeAutolinkHeadings,
+				{
+					behavior: "append",
+					content: {
+						type: "element",
+						tagName: "span",
+						properties: { className: ["icon-link"] },
+						children: [{ type: "text", value: "#" }],
+					},
+				},
 			],
 		],
 	},

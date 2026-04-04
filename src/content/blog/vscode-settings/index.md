@@ -13,61 +13,68 @@ updatedDate: 2026-03-10
 
 ```jsonc title="setting.json"
 {
-  // エディタのテーマ設定
-  "workbench.colorTheme": "GitHub Dark",
+  // ==================================================
+  // 全体の設定
+  // ==================================================
   "workbench.iconTheme": "material-icon-theme",
-  // スティッキースクロールを無効化
   "workbench.tree.enableStickyScroll": false,
-  "editor.stickyScroll.enabled": false,
-  "terminal.integrated.stickyScroll.enabled": false,
-  // スタートアップエディタを無効化
   "workbench.startupEditor": "none",
-  // ファイルの末尾に改行を挿入
-  "files.insertFinalNewline": true,
-  // ウィンドウ全体のズームレベル
-  "window.zoomLevel": 1,
-  // 空のフォルダをまとめて表示しない
-  "explorer.compactFolders": false,
-  // ドラック＆ドロップの確認ダイアログを無効化
-  "explorer.confirmDragAndDrop": false,
-  // フォント設定
-  "terminal.integrated.fontFamily": "Ricty Diminished, Consolas, 'Courier New', monospace",
-  "editor.fontFamily": "Ricty Diminished, Consolas, 'Courier New', monospace",
-  // フォントサイズ
-  "terminal.integrated.fontSize": 13,
-  "editor.fontSize": 13,
-  // 保存時の自動フォーマット
-  "editor.formatOnSave": true,
-  // タブサイズ
+  "workbench.editor.empty.hint": "hidden",
+
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontSize": 12,
   "editor.tabSize": 4,
-  // すべての空白を表示
+  "editor.formatOnSave": true,
   "editor.renderWhitespace": "all",
-  // 曖昧なUnicode文字のハイライトを無効化
+  "editor.accessibilitySupport": "off",
+  "editor.stickyScroll.enabled": false,
   "editor.unicodeHighlight.ambiguousCharacters": false,
-  // コメント内のUnicodeハイライトを無効化
   "editor.unicodeHighlight.includeComments": false,
-  // 不可視文字のハイライトを無効化
   "editor.unicodeHighlight.invisibleCharacters": false,
-  // 非ASCII文字のハイライトを無効化
   "editor.unicodeHighlight.nonBasicASCII": false,
-  // TypeScriptのインレイヒント設定
-  "typescript.inlayHints.parameterNames.enabled": "all",
+
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd font",
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.initialHint": false,
+  "terminal.integrated.stickyScroll.enabled": false,
+
+  "explorer.compactFolders": false,
+  "explorer.confirmDragAndDrop": false,
+
+  "files.insertFinalNewline": true,
+
+  // ==================================================
+  // JSONスキーマのダウンロードを許可するドメインの設定
+  // ==================================================
+  "json.schemaDownload.trustedDomains": {
+    "https://biomejs.dev": true,
+    "https://ui.shadcn.com/schema.json": true,
+  },
+
+  // ==================================================
   // GitHub Copilotの設定
+  // ==================================================
   "github.copilot.enable": {
     "*": true,
     "plaintext": true,
     "markdown": true,
     "scminput": false,
   },
-  // ファイルごとの設定
-  "[sql]": {
-    "editor.defaultFormatter": "mtxr.sqltools",
-  },
+
+  // ==================================================
+  // 言語ごとの設定
+  // ==================================================
   "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome",
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -75,38 +82,39 @@ updatedDate: 2026-03-10
   "[mdx]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+  },
 }
 ```
 
-## 拡張機能
+## 使ってる拡張機能
 
-| 名称                                          | 備考                            |
-| --------------------------------------------- | ------------------------------- |
-| Japanese Language Pack for Visual Studio Code | 日本語サポート                  |
-| GitHub Theme                                  | テーマ                          |
-| Material Icon Theme                           | ファイル・フォルダ用アイコン    |
-| Docker                                        | Docker 関連                     |
-| Docker DX                                     | Docker 補完                     |
-| Remote Development                            | コンテナ開発                    |
-| Playwright Test for VSCode                    | テストツール                    |
-| Git Graph                                     | Git Log                         |
-| GitHub Copilot                                | AI コード補完                   |
-| GitHub Copilot Chat                           | AI コード補完 （チャット）      |
-| Code Spell Checker                            | 誤字脱字                        |
-| Path Intellisense                             | パス補完                        |
-| IntelliCode                                   | AI 支援開発                     |
-| Error Lens                                    | エラー表示                      |
-| Live Server                                   | プレビューサーバー              |
-| Prettier - Code formatter                     | コードフォーマッター            |
-| ESLint                                        | リンター補助                    |
-| Auto Close Tag                                | HTML タグ補助                   |
-| Auto Rename Tag                               | HTML タグ補助                   |
-| css-var-color-decorator                       | CSS カラー表示                  |
-| MDX                                           | MDX サポート                    |
-| Markdown All in One                           | マークダウンサポート            |
-| SQLTools                                      | SQL フォーマッター・DB 操作補助 |
-| Biome                                         | フォーマッター・リンター        |
-| Draw.io Integration                           | Draw.io が VSCode で使用可能    |
-| shadcn/ui                                     | UI コンポーネントライブラリ     |
-| Tailwind CSS IntelliSense                     | Tailwind CSS サポート           |
-| Prisma                                        | Prisma 補助                     |
+- [Astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode)
+- [Biome](https://marketplace.visualstudio.com/items?itemName=biomejs.biome)
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+- [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag)
+- [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
+- [GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)
+- [GitHub Actions](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-github-actions)
+- [HashiCorp Terraform](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform)
+- [Draw.io Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)
+- [Edit CSV](https://marketplace.visualstudio.com/items?itemName=janisdd.vscode-edit-csv)
+- [css-var-color-decorator](https://marketplace.visualstudio.com/items?itemName=meouwu.css-var-color-decorator)
+- [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
+- [Playwright Test for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-playwright.playwright)
+- [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+- [Prisma](https://marketplace.visualstudio.com/items?itemName=Prisma.prisma)
+- [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one)

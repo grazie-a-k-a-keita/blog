@@ -2,7 +2,7 @@
 title: "個人的VSCodeの設定まとめ"
 description: "個人的に使っているVSCodeの設定をまとめました。"
 pubDate: 2025-12-28
-updatedDate: 2026-03-10
+updatedDate: 2026-05-02
 ---
 
 僕は普段から`Visual Studio Code`をメインのコードエディタとして使用していて、PC ごとにいちいち設定をするのが面倒なので、設定ファイルと使用している拡張機能をまとめようと思います。
@@ -32,6 +32,7 @@ updatedDate: 2026-03-10
   "editor.unicodeHighlight.includeComments": false,
   "editor.unicodeHighlight.invisibleCharacters": false,
   "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.insertSpaces": false,
 
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd font",
   "terminal.integrated.fontSize": 13,
@@ -42,6 +43,8 @@ updatedDate: 2026-03-10
   "explorer.confirmDragAndDrop": false,
 
   "files.insertFinalNewline": true,
+
+  "search.mode": "reuseEditor",
 
   // ==================================================
   // JSONスキーマのダウンロードを許可するドメインの設定
@@ -60,6 +63,7 @@ updatedDate: 2026-03-10
     "markdown": true,
     "scminput": false,
   },
+  "chat.viewSessions.orientation": "stacked",
 
   // ==================================================
   // 言語ごとの設定

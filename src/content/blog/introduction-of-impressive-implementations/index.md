@@ -15,7 +15,7 @@ pubDate: 2026-05-16
 ```ts title="infrastructure/.../inMemoryCacheManager.ts"
 import type { Cache } from "cache-manager";
 
-export class ImMemoryCacheManager implements CacheManager {
+export class InMemoryCacheManager {
   public constructor(
     private readonly cache: Cache,
     private readonly groupName: string = "",
@@ -40,7 +40,7 @@ export class ImMemoryCacheManager implements CacheManager {
   // ...
 
   public group(name: string): CacheManager {
-    return new ImMemoryCacheManager(
+    return new InMemoryCacheManager(
       this.cache,
       this.buildGroupKey(this.groupName, name),
     );
@@ -68,6 +68,6 @@ export class ImMemoryCacheManager implements CacheManager {
 
 こういうコードをサラッと書けるようになりたいですね。
 
-絶賛、この本を読んで勉強中です。いい本です！
+今、この本を読んで勉強しているのですが、非常に良い本です！
 
 https://www.oreilly.co.jp/books/9784814400331/

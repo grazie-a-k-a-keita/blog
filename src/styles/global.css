@@ -5,6 +5,7 @@
 @import "shadcn/tailwind.css";
 @import "./remark-link-card.css";
 @import "./heading-link.css";
+@import "./speakerdeck-iframe.css";
 
 @plugin "@tailwindcss/typography";
 

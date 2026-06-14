@@ -16,5 +16,13 @@
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-	"cSpell.words": ["fontsource", "Keita", "noto", "Ohno", "oklch", "shadcn"]
+	"cSpell.words": [
+		"fontsource",
+		"Keita",
+		"noto",
+		"Ohno",
+		"oklch",
+		"shadcn",
+		"speakerdeck"
+	]
 }

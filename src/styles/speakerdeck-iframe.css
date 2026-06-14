@@ -1,0 +1,3 @@
+.speakerdeck-iframe {
+	@apply border rounded-md w-full h-auto aspect-560/315;
+}

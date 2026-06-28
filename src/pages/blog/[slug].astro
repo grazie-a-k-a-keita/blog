@@ -25,6 +25,9 @@ const { Content, headings } = await render(post);
 	content={{
 		title: `${post.data.title} | ${appConfig.title}`,
 		description: post.data.description,
+		type: "article",
+		publishedTime: post.data.pubDate.toISOString(),
+		modifiedTime: post.data.updatedDate?.toISOString(),
 	}}
 >
 	<article class="space-y-16">

@@ -1,4 +1,6 @@
 // @ts-check
+
+import { unified } from "@astrojs/markdown-remark";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
@@ -16,26 +18,28 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 	},
 	markdown: {
-		remarkPlugins: [[remarkLinkCard, { cache: true, noThumbnail: true }]],
-		rehypePlugins: [
-			rehypeSlug,
-			[
-				rehypeExternalLinks,
-				{ target: "_blank", rel: ["noopener", "noreferrer"] },
-			],
-			[
-				rehypeAutolinkHeadings,
-				{
-					behavior: "append",
-					content: {
-						type: "element",
-						tagName: "span",
-						properties: { className: ["icon-link"] },
-						children: [{ type: "text", value: "#" }],
+		processor: unified({
+			remarkPlugins: [[remarkLinkCard, { cache: true, noThumbnail: true }]],
+			rehypePlugins: [
+				rehypeSlug,
+				[
+					rehypeExternalLinks,
+					{ target: "_blank", rel: ["noopener", "noreferrer"] },
+				],
+				[
+					rehypeAutolinkHeadings,
+					{
+						behavior: "append",
+						content: {
+							type: "element",
+							tagName: "span",
+							properties: { className: ["icon-link"] },
+							children: [{ type: "text", value: "#" }],
+						},
 					},
-				},
+				],
 			],
-		],
+		}),
 	},
 	site: appConfig.siteUrl,
 	integrations: [

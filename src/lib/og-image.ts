@@ -1,5 +1,6 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
+import type { ReactElement } from "react";
 import satori from "satori";
 import sharp from "sharp";
 import { appConfig } from "@/shared/app.config";
@@ -30,7 +31,7 @@ async function loadFonts() {
 }
 
 async function loadLogo() {
-	const png = await sharp(LOGO_PATH).resize(144, 144).png().toBuffer();
+	const png = await sharp(LOGO_PATH).resize(180, 180).png().toBuffer();
 	return `data:image/png;base64,${png.toString("base64")}`;
 }
 
@@ -38,66 +39,69 @@ let assets:
 	| Promise<[Awaited<ReturnType<typeof loadFonts>>, string]>
 	| undefined;
 
+// satori に渡す要素ツリーを JSX なしで組み立てるための小さなヘルパー
+const h = (
+	type: string,
+	style: Record<string, string | number>,
+	children?: ReactElement | string | ReactElement[],
+	props: Record<string, unknown> = {},
+): ReactElement => ({
+	type,
+	key: null,
+	props: { ...props, style: { display: "flex", ...style }, children },
+});
+
 /** 記事タイトルを載せた OG 画像（PNG）を生成する */
 export async function renderOgImage(title: string): Promise<Buffer> {
 	assets ??= Promise.all([loadFonts(), loadLogo()]);
 	const [fonts, logo] = await assets;
 
 	const svg = await satori(
-		{
-			type: "div",
-			props: {
-				style: {
+		h(
+			"div",
+			{
+				width: "100%",
+				height: "100%",
+				padding: "36px",
+				// ロゴの背景色に合わせた外枠
+				backgroundColor: "#acbbd8",
+				fontFamily: fonts.map((f) => `"${f.name}"`).join(", "),
+			},
+			h(
+				"div",
+				{
 					width: "100%",
 					height: "100%",
-					display: "flex",
 					flexDirection: "column",
 					justifyContent: "space-between",
-					padding: "80px",
-					backgroundColor: "#fafaf9",
+					padding: "56px 64px",
+					borderRadius: "20px",
+					backgroundColor: "#ffffff",
+					boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
 					color: "#0c0a09",
-					fontFamily: fonts.map((f) => `"${f.name}"`).join(", "),
 				},
-				children: [
-					{
-						type: "div",
-						props: {
-							style: {
-								display: "flex",
-								fontSize: 64,
-								lineHeight: 1.4,
-								wordBreak: "break-all",
+				[
+					h("div", { fontSize: 56, lineHeight: 1.5 }, title),
+					h("div", { alignItems: "center", gap: "28px" }, [
+						h(
+							"img",
+							{
+								width: "90px",
+								height: "90px",
+								borderRadius: "20px",
+								border: "3px solid #d6e3ed",
 							},
-							children: title,
-						},
-					},
-					{
-						type: "div",
-						props: {
-							style: { display: "flex", alignItems: "center", gap: "24px" },
-							children: [
-								{
-									type: "img",
-									props: {
-										src: logo,
-										width: 72,
-										height: 72,
-										style: { borderRadius: "9999px" },
-									},
-								},
-								{
-									type: "div",
-									props: {
-										style: { fontSize: 36, color: "#57534e" },
-										children: appConfig.title,
-									},
-								},
-							],
-						},
-					},
+							undefined,
+							{ src: logo, width: 90, height: 90 },
+						),
+						h("div", { flexDirection: "column", gap: "4px" }, [
+							h("div", { fontSize: 34 }, appConfig.author.name),
+							h("div", { fontSize: 26, color: "#6e7b85" }, appConfig.xHandle),
+						]),
+					]),
 				],
-			},
-		},
+			),
+		),
 		{ width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, fonts },
 	);
 

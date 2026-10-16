@@ -118,6 +118,12 @@ const jsonLdHtml = JSON.stringify({
 		<meta name="twitter:image" content={ogImage}>
 		<meta name="twitter:image:alt" content={ogImageAlt}>
 		<link rel="icon" href="/favicon.ico">
+		<link
+			rel="alternate"
+			type="application/rss+xml"
+			title={appConfig.title}
+			href="/rss.xml"
+		>
 		<script type="application/ld+json" set:html={jsonLdHtml} />
 		<title>{content.title}</title>
 		<!-- mode toggle -->

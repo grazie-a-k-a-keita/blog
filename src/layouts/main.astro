@@ -10,12 +10,79 @@ interface Content {
 	type?: "website" | "article";
 	publishedTime?: string;
 	modifiedTime?: string;
+	/** 記事ページでのみ使う、サイト名を含まない記事タイトル */
+	headline?: string;
 }
 
 const { content } = Astro.props as { content: Content };
 const url = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(appConfig.ogImage, Astro.site);
 const ogType = content.type ?? "website";
+
+const siteUrl = new URL("/", Astro.site).href;
+const websiteId = `${siteUrl}#website`;
+const authorId = `${siteUrl}#author`;
+const jsonLd: Record<string, unknown>[] = [
+	{
+		"@type": "WebSite",
+		"@id": websiteId,
+		name: appConfig.title,
+		description: appConfig.description,
+		url: siteUrl,
+		inLanguage: "ja",
+		author: { "@id": authorId },
+	},
+	{
+		"@type": "Person",
+		"@id": authorId,
+		name: appConfig.author.name,
+		alternateName: appConfig.author.alternateName,
+		url: siteUrl,
+		sameAs: appConfig.author.sameAs,
+	},
+];
+if (ogType === "article" && content.headline) {
+	jsonLd.push(
+		{
+			"@type": "BlogPosting",
+			"@id": `${url.href}#article`,
+			headline: content.headline,
+			description: content.description,
+			url: url.href,
+			mainEntityOfPage: url.href,
+			image: ogImage.href,
+			datePublished: content.publishedTime,
+			dateModified: content.modifiedTime ?? content.publishedTime,
+			inLanguage: "ja",
+			author: { "@id": authorId },
+			publisher: { "@id": authorId },
+			isPartOf: { "@id": websiteId },
+		},
+		{
+			"@type": "BreadcrumbList",
+			itemListElement: [
+				{
+					"@type": "ListItem",
+					position: 1,
+					name: appConfig.title,
+					item: siteUrl,
+				},
+				{
+					"@type": "ListItem",
+					position: 2,
+					name: "blog",
+					item: new URL("/blog/", Astro.site).href,
+				},
+				{ "@type": "ListItem", position: 3, name: content.headline },
+			],
+		},
+	);
+}
+// </script> などで構造化データが閉じられないよう < をエスケープする
+const jsonLdHtml = JSON.stringify({
+	"@context": "https://schema.org",
+	"@graph": jsonLd,
+}).replace(/</g, "\\u003c");
 ---
 
 <html lang="ja" class="scroll-smooth">
@@ -47,6 +114,7 @@ const ogType = content.type ?? "website";
 		<meta name="twitter:description" content={content.description}>
 		<meta name="twitter:image" content={ogImage}>
 		<link rel="icon" href="/favicon.ico">
+		<script type="application/ld+json" set:html={jsonLdHtml} />
 		<title>{content.title}</title>
 		<!-- mode toggle -->
 		<script is:inline>

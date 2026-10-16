@@ -28,6 +28,7 @@ const { Content, headings } = await render(post);
 		type: "article",
 		publishedTime: post.data.pubDate.toISOString(),
 		modifiedTime: post.data.updatedDate?.toISOString(),
+		headline: post.data.title,
 	}}
 >
 	<article class="space-y-16">

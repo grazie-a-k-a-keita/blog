@@ -1,5 +1,6 @@
 ---
 import dayjs from "dayjs";
+import { appConfig } from "@/shared/app.config";
 ---
 
 <footer
@@ -7,7 +8,7 @@ import dayjs from "dayjs";
 >
 	<div class="flex h-full items-center justify-center py-8">
 		<p class="text-muted-foreground text-sm">
-			&copy; {dayjs().format("YYYY")} Ohno Keita
+			<small>&copy; {dayjs().format("YYYY")} {appConfig.author.name}</small>
 		</p>
 	</div>
 </footer>

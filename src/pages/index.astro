@@ -14,7 +14,7 @@ const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 >
 	<div class="space-y-12">
 		<section class="[&>p]:text-muted-foreground space-y-4">
-			<h1 class="text-xl font-bold">Ohno Keita</h1>
+			<h1 class="text-xl font-bold">{appConfig.author.name}</h1>
 			<p>オオノケイタの個人サイトです 🦖</p>
 		</section>
 		<section class="[&>p]:text-muted-foreground space-y-4">
@@ -31,27 +31,23 @@ const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 			<h2 class="text-lg font-bold">Skill</h2>
 			<ul class="flex flex-wrap gap-4">
 				{skill.map((s) => (
-						<li>
-							<div class="bg-muted flex items-center gap-2 rounded-md px-3 py-2">
-								<img
-									src={`/images/skill/${s.icon}.svg`}
-									alt={s.name}
-									class="size-4"
-								/>
-								<span class="text-sm">{s.name}</span>
-							</div>
-						</li>
-					))}
+					<li>
+						<div class="bg-muted flex items-center gap-2 rounded-md px-3 py-2">
+							<img src={`/images/skill/${s.icon}.svg`} alt="" class="size-4" />
+							<span class="text-sm">{s.name}</span>
+						</div>
+					</li>
+				))}
 			</ul>
 		</section>
 		<section class="space-y-4">
 			<h2 class="text-lg font-bold">Certification</h2>
 			<ul class="list-outside list-disc space-y-3">
 				{certification.map((c) => (
-						<li class="text-muted-foreground ms-6">
-							<span>{c.name}</span>
-						</li>
-					))}
+					<li class="text-muted-foreground ms-6">
+						<span>{c.name}</span>
+					</li>
+				))}
 			</ul>
 		</section>
 		<section class="space-y-4">
@@ -60,10 +56,10 @@ const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 				<li>
 					<iframe
 						class="speakerdeck-iframe"
-						frameborder="0"
 						src="https://speakerdeck.com/player/43a4951806c545588999021ffa0d6382"
 						title="Fumadocsはいいぞ！"
-						allowfullscreen="true"
+						allowfullscreen
+						loading="lazy"
 						allow="web-share"
 						data-ratio="1.7777777777777777"
 					></iframe>
@@ -71,10 +67,10 @@ const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 				<li>
 					<iframe
 						class="speakerdeck-iframe"
-						frameborder="0"
 						src="https://speakerdeck.com/player/48317605233f4bc09a172c96d499229e"
 						title="Dockerfile CMD for Node.js"
-						allowfullscreen="true"
+						allowfullscreen
+						loading="lazy"
 						allow="web-share"
 						data-ratio="1.7777777777777777"
 					></iframe>

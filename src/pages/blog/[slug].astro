@@ -31,25 +31,29 @@ const { Content, headings } = await render(post);
 	}}
 >
 	<article class="space-y-16">
-		<div class="space-y-8 text-center">
+		<header class="space-y-8 text-center">
 			<h1 class="text-2xl font-bold">{post.data.title}</h1>
-			<div class="text-muted-foreground flex items-center justify-center gap-6">
-				<div class="flex items-center gap-2">
-					{post.data.updatedDate !== undefined ? (
-						<RefreshCcw className="size-4" />
-					) : (
-						<Calendar className="size-4" />
-					)}
-					<p class="text-muted-foreground font-mono">
-						{dayjs(
-							post.data.updatedDate !== undefined
-								? post.data.updatedDate
-								: post.data.pubDate,
-						).format("YYYY-MM-DD")}
+			<div
+				class="text-muted-foreground flex flex-wrap items-center justify-center gap-6 font-mono"
+			>
+				<p class="flex items-center gap-2">
+					<Calendar className="size-4" aria-hidden="true" />
+					<span class="sr-only">公開日</span>
+					<time datetime={post.data.pubDate.toISOString()}>
+						{dayjs(post.data.pubDate).format("YYYY-MM-DD")}
+					</time>
+				</p>
+				{post.data.updatedDate !== undefined && (
+					<p class="flex items-center gap-2">
+						<RefreshCcw className="size-4" aria-hidden="true" />
+						<span class="sr-only">更新日</span>
+						<time datetime={post.data.updatedDate.toISOString()}>
+							{dayjs(post.data.updatedDate).format("YYYY-MM-DD")}
+						</time>
 					</p>
-				</div>
+				)}
 			</div>
-		</div>
+		</header>
 		<Prose>
 			<Toc headings={headings} />
 			<hr>

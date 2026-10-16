@@ -2,6 +2,7 @@ export const appConfig = {
 	siteUrl: "https://kotukotu-stack-log.com",
 	title: "GrazieHub",
 	description: "オオノケイタの個人ブログ",
+	author: { name: "Ohno Keita", alternateName: "オオノケイタ" },
 	gitHubUrl: "https://github.com/grazie-a-k-a-keita/blog",
 	xUrl: "https://twitter.com/grazie_Engineer",
 	xHandle: "@grazie_Engineer",

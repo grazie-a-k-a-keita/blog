@@ -29,6 +29,7 @@ const { Content, headings } = await render(post);
 		publishedTime: post.data.pubDate.toISOString(),
 		modifiedTime: post.data.updatedDate?.toISOString(),
 		headline: post.data.title,
+		ogImage: `/og/${post.id}.png`,
 	}}
 >
 	<article class="space-y-16">

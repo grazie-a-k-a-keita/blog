@@ -55,8 +55,8 @@ const jsonLd = buildJsonLd({ url, ogImage, article });
 			<meta property="article:modified_time" content={modifiedTime} />
 		)}
 		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content={appConfig.xHandle}>
-		<meta name="twitter:creator" content={appConfig.xHandle}>
+		<meta name="twitter:site" content={appConfig.author.x.handle}>
+		<meta name="twitter:creator" content={appConfig.author.x.handle}>
 		<meta name="twitter:title" content={title}>
 		<meta name="twitter:description" content={description}>
 		<meta name="twitter:image" content={ogImage}>

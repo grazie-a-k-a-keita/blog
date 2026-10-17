@@ -1,6 +1,6 @@
 ---
 import "../../styles/global.css";
-import dayjs from "dayjs";
+import { formatDate } from "@/lib/date";
 import { getSortedPosts, postUrl } from "@/lib/posts";
 import { appConfig } from "@/shared/app.config";
 import Layout from "../../layouts/main.astro";
@@ -26,10 +26,10 @@ const description = "勉強したことや日々思ったことを不定期で�
 							</a>
 						</h2>
 						<time
-							datetime={dayjs(post.data.pubDate).format("YYYY-MM-DD")}
+							datetime={formatDate(post.data.pubDate)}
 							class="text-foreground/50 font-mono"
 						>
-							{dayjs(post.data.pubDate).format("（YYYY-MM-DD）")}
+							（{formatDate(post.data.pubDate)}）
 						</time>
 					</article>
 				</li>

@@ -19,7 +19,7 @@ interface Person {
 	name: string;
 	alternateName: string;
 	url: string;
-	sameAs: readonly string[];
+	sameAs: string[];
 }
 
 interface BlogPosting {
@@ -83,7 +83,7 @@ export function buildJsonLd({ url, ogImage, article }: Options): string {
 			name: appConfig.author.name,
 			alternateName: appConfig.author.alternateName,
 			url: siteUrl,
-			sameAs: appConfig.author.sameAs,
+			sameAs: [appConfig.author.githubUrl, appConfig.author.x.url],
 		},
 	];
 

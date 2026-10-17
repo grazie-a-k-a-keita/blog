@@ -1,8 +1,8 @@
 ---
 import { render } from "astro:content";
-import dayjs from "dayjs";
 import { Calendar, RefreshCcw } from "lucide-react";
 import { getPostStaticPaths, type Post } from "@/lib/posts";
+import PostDate from "../../components/post-date.astro";
 import Prose from "../../components/prose.astro";
 import Toc from "../../components/toc";
 import Layout from "../../layouts/main.astro";
@@ -22,21 +22,13 @@ const { Content, headings } = await render(post);
 			<div
 				class="text-muted-foreground flex flex-wrap items-center justify-center gap-6 font-mono"
 			>
-				<p class="flex items-center gap-2">
-					<Calendar className="size-4" aria-hidden="true" />
-					<span class="sr-only">公開日</span>
-					<time datetime={post.data.pubDate.toISOString()}>
-						{dayjs(post.data.pubDate).format("YYYY-MM-DD")}
-					</time>
-				</p>
+				<PostDate date={post.data.pubDate} label="公開日" icon={Calendar} />
 				{post.data.updatedDate !== undefined && (
-					<p class="flex items-center gap-2">
-						<RefreshCcw className="size-4" aria-hidden="true" />
-						<span class="sr-only">更新日</span>
-						<time datetime={post.data.updatedDate.toISOString()}>
-							{dayjs(post.data.updatedDate).format("YYYY-MM-DD")}
-						</time>
-					</p>
+					<PostDate
+						date={post.data.updatedDate}
+						label="更新日"
+						icon={RefreshCcw}
+					/>
 				)}
 			</div>
 		</header>

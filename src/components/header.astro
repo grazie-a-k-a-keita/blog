@@ -7,6 +7,11 @@ import { appConfig } from "@/shared/app.config";
 import GitHubIcon from "../asset/GitHub_light.svg";
 import Logo from "../asset/logo.png";
 import XIcon from "../asset/x.svg";
+
+const externalLinks = [
+	{ label: "GitHub", href: appConfig.repositoryUrl, Icon: GitHubIcon },
+	{ label: "X", href: appConfig.author.x.url, Icon: XIcon },
+];
 ---
 
 <header
@@ -31,40 +36,25 @@ import XIcon from "../asset/x.svg";
 			class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}
 			>blog</a
 		>
-		<a
-			aria-label="GitHub（新しいタブで開く）"
-			href={appConfig.gitHubUrl}
-			rel="noopener noreferrer"
-			target="_blank"
-			class={cn(
-				buttonVariants({ variant: "ghost", size: "icon" }),
-				"rounded-full",
-			)}
-		>
-			<GitHubIcon
-				aria-hidden="true"
-				class="size-4 dark:invert"
-				width={16}
-				height={16}
-			/>
-		</a>
-		<a
-			aria-label="X（新しいタブで開く）"
-			href={appConfig.xUrl}
-			rel="noopener noreferrer"
-			target="_blank"
-			class={cn(
-				buttonVariants({ variant: "ghost", size: "icon" }),
-				"rounded-full",
-			)}
-		>
-			<XIcon
-				aria-hidden="true"
-				class="size-4 dark:invert"
-				width={16}
-				height={16}
-			/>
-		</a>
+		{externalLinks.map(({ label, href, Icon }) => (
+			<a
+				aria-label={`${label}（新しいタブで開く）`}
+				href={href}
+				rel="noopener noreferrer"
+				target="_blank"
+				class={cn(
+					buttonVariants({ variant: "ghost", size: "icon" }),
+					"rounded-full",
+				)}
+			>
+				<Icon
+					aria-hidden="true"
+					class="size-4 dark:invert"
+					width={16}
+					height={16}
+				/>
+			</a>
+		))}
 	</nav>
 	<ModeToggle client:load />
 </header>

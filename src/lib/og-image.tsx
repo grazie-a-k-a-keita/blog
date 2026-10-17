@@ -84,7 +84,7 @@ export async function renderOgImage(title: string): Promise<Buffer> {
 							{appConfig.author.name}
 						</div>
 						<div style={{ display: "flex", fontSize: 26, color: "#6e7b85" }}>
-							{appConfig.xHandle}
+							{appConfig.author.x.handle}
 						</div>
 					</div>
 				</div>

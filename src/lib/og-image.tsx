@@ -1,12 +1,8 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import type { ReactElement } from "react";
 import satori from "satori";
 import sharp from "sharp";
 import { appConfig } from "@/shared/app.config";
-
-export const OG_IMAGE_WIDTH = 1200;
-export const OG_IMAGE_HEIGHT = 630;
 
 const FONT_DIR = path.join(
 	process.cwd(),
@@ -35,41 +31,26 @@ async function loadLogo() {
 	return `data:image/png;base64,${png.toString("base64")}`;
 }
 
-let assets:
-	| Promise<[Awaited<ReturnType<typeof loadFonts>>, string]>
-	| undefined;
-
-// satori に渡す要素ツリーを JSX なしで組み立てるための小さなヘルパー
-const h = (
-	type: string,
-	style: Record<string, string | number>,
-	children?: ReactElement | string | ReactElement[],
-	props: Record<string, unknown> = {},
-): ReactElement => ({
-	type,
-	key: null,
-	props: { ...props, style: { display: "flex", ...style }, children },
-});
+const [fonts, logo] = await Promise.all([loadFonts(), loadLogo()]);
+const fontFamily = fonts.map((f) => `"${f.name}"`).join(", ");
 
 /** 記事タイトルを載せた OG 画像（PNG）を生成する */
 export async function renderOgImage(title: string): Promise<Buffer> {
-	assets ??= Promise.all([loadFonts(), loadLogo()]);
-	const [fonts, logo] = await assets;
-
 	const svg = await satori(
-		h(
-			"div",
-			{
+		<div
+			style={{
+				display: "flex",
 				width: "100%",
 				height: "100%",
 				padding: "36px",
 				// ロゴの背景色に合わせた外枠
 				backgroundColor: "#acbbd8",
-				fontFamily: fonts.map((f) => `"${f.name}"`).join(", "),
-			},
-			h(
-				"div",
-				{
+				fontFamily,
+			}}
+		>
+			<div
+				style={{
+					display: "flex",
 					width: "100%",
 					height: "100%",
 					flexDirection: "column",
@@ -79,30 +60,37 @@ export async function renderOgImage(title: string): Promise<Buffer> {
 					backgroundColor: "#ffffff",
 					boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
 					color: "#0c0a09",
-				},
-				[
-					h("div", { fontSize: 56, lineHeight: 1.5 }, title),
-					h("div", { alignItems: "center", gap: "28px" }, [
-						h(
-							"img",
-							{
-								width: "90px",
-								height: "90px",
-								borderRadius: "20px",
-								border: "3px solid #d6e3ed",
-							},
-							undefined,
-							{ src: logo, width: 90, height: 90 },
-						),
-						h("div", { flexDirection: "column", gap: "4px" }, [
-							h("div", { fontSize: 34 }, appConfig.author.name),
-							h("div", { fontSize: 26, color: "#6e7b85" }, appConfig.xHandle),
-						]),
-					]),
-				],
-			),
-		),
-		{ width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, fonts },
+				}}
+			>
+				<div style={{ display: "flex", fontSize: 56, lineHeight: 1.5 }}>
+					{title}
+				</div>
+				<div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+					<img
+						src={logo}
+						alt=""
+						width={90}
+						height={90}
+						style={{
+							display: "flex",
+							width: "90px",
+							height: "90px",
+							borderRadius: "20px",
+							border: "3px solid #d6e3ed",
+						}}
+					/>
+					<div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+						<div style={{ display: "flex", fontSize: 34 }}>
+							{appConfig.author.name}
+						</div>
+						<div style={{ display: "flex", fontSize: 26, color: "#6e7b85" }}>
+							{appConfig.xHandle}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>,
+		{ width: 1200, height: 630, fonts },
 	);
 
 	return sharp(Buffer.from(svg)).png().toBuffer();

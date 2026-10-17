@@ -2,7 +2,6 @@
 import { type CollectionEntry, getCollection, render } from "astro:content";
 import dayjs from "dayjs";
 import { Calendar, RefreshCcw } from "lucide-react";
-import { appConfig } from "@/shared/app.config";
 import Prose from "../../components/prose.astro";
 import Toc from "../../components/toc";
 import Layout from "../../layouts/main.astro";
@@ -21,17 +20,7 @@ const post = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
-<Layout
-	content={{
-		title: `${post.data.title} | ${appConfig.title}`,
-		description: post.data.description,
-		type: "article",
-		publishedTime: post.data.pubDate.toISOString(),
-		modifiedTime: post.data.updatedDate?.toISOString(),
-		headline: post.data.title,
-		ogImage: `/og/${post.id}.png`,
-	}}
->
+<Layout article={post}>
 	<article class="space-y-16">
 		<header class="space-y-8 text-center">
 			<h1 class="text-2xl font-bold">{post.data.title}</h1>

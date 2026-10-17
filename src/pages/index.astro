@@ -9,9 +9,7 @@ import { appConfig } from "@/shared/app.config";
 const workYears = dayjs().diff(dayjs("2022-04-01"), "year") + 1;
 ---
 
-<Layout
-	content={{ title: appConfig.title, description: appConfig.description }}
->
+<Layout title={appConfig.title} description={appConfig.description}>
 	<div class="space-y-12">
 		<section class="[&>p]:text-muted-foreground space-y-4">
 			<h1 class="text-xl font-bold">{appConfig.author.name}</h1>

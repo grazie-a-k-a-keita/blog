@@ -11,7 +11,7 @@ const posts = (await getCollection("blog")).sort(
 const description = "勉強したことや日々思ったことを不定期で更新していきます。";
 ---
 
-<Layout content={{ title: `blog | ${appConfig.title}`, description }}>
+<Layout title={`blog | ${appConfig.title}`} description={description}>
 	<section class="space-y-8">
 		<h1 class="text-xl font-bold">blog</h1>
 		<p>{description}</p>

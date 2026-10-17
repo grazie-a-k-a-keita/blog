@@ -1,26 +1,33 @@
 ---
 import "../styles/global.css";
+import type { CollectionEntry } from "astro:content";
 import { appConfig } from "@/shared/app.config";
 import Footer from "../components/footer.astro";
 import Header from "../components/header.astro";
 
-interface Content {
-	title: string;
-	description: string;
-	type?: "website" | "article";
-	publishedTime?: string;
-	modifiedTime?: string;
-	/** 記事ページでのみ使う、サイト名を含まない記事タイトル */
-	headline?: string;
-	/** 省略時はサイト共通の OG 画像を使う */
-	ogImage?: string;
-}
+type Props =
+	| { title: string; description: string }
+	| { article: CollectionEntry<"blog"> };
 
-const { content } = Astro.props as { content: Content };
+const props = Astro.props;
+const { title, description, article } =
+	"article" in props
+		? {
+				title: `${props.article.data.title} | ${appConfig.title}`,
+				description: props.article.data.description,
+				article: props.article,
+			}
+		: { ...props, article: undefined };
+
 const url = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(content.ogImage ?? appConfig.ogImage, Astro.site);
-const ogImageAlt = content.headline ?? appConfig.title;
-const ogType = content.type ?? "website";
+const ogImage = new URL(
+	article ? `/og/${article.id}.png` : appConfig.ogImage,
+	Astro.site,
+);
+const ogImageAlt = article?.data.title ?? appConfig.title;
+const ogType = article ? "article" : "website";
+const publishedTime = article?.data.pubDate.toISOString();
+const modifiedTime = article?.data.updatedDate?.toISOString();
 
 const siteUrl = new URL("/", Astro.site).href;
 const websiteId = `${siteUrl}#website`;
@@ -44,18 +51,18 @@ const jsonLd: Record<string, unknown>[] = [
 		sameAs: appConfig.author.sameAs,
 	},
 ];
-if (ogType === "article" && content.headline) {
+if (article) {
 	jsonLd.push(
 		{
 			"@type": "BlogPosting",
 			"@id": `${url.href}#article`,
-			headline: content.headline,
-			description: content.description,
+			headline: article.data.title,
+			description,
 			url: url.href,
 			mainEntityOfPage: url.href,
 			image: ogImage.href,
-			datePublished: content.publishedTime,
-			dateModified: content.modifiedTime ?? content.publishedTime,
+			datePublished: publishedTime,
+			dateModified: modifiedTime ?? publishedTime,
 			inLanguage: "ja",
 			author: { "@id": authorId },
 			publisher: { "@id": authorId },
@@ -76,7 +83,7 @@ if (ogType === "article" && content.headline) {
 					name: "blog",
 					item: new URL("/blog/", Astro.site).href,
 				},
-				{ "@type": "ListItem", position: 3, name: content.headline },
+				{ "@type": "ListItem", position: 3, name: article.data.title },
 			],
 		},
 	);
@@ -92,29 +99,29 @@ const jsonLdHtml = JSON.stringify({
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content={content.description}>
+		<meta name="description" content={description}>
 		<link rel="canonical" href={url}>
 		<meta property="og:type" content={ogType}>
 		<meta property="og:site_name" content={appConfig.title}>
 		<meta property="og:locale" content="ja_JP">
 		<meta property="og:url" content={url}>
-		<meta property="og:title" content={content.title}>
-		<meta property="og:description" content={content.description}>
+		<meta property="og:title" content={title}>
+		<meta property="og:description" content={description}>
 		<meta property="og:image" content={ogImage}>
 		<meta property="og:image:width" content="1200">
 		<meta property="og:image:height" content="630">
 		<meta property="og:image:alt" content={ogImageAlt}>
-		{ogType === "article" && content.publishedTime && (
-			<meta property="article:published_time" content={content.publishedTime} />
+		{publishedTime && (
+			<meta property="article:published_time" content={publishedTime} />
 		)}
-		{ogType === "article" && content.modifiedTime && (
-			<meta property="article:modified_time" content={content.modifiedTime} />
+		{modifiedTime && (
+			<meta property="article:modified_time" content={modifiedTime} />
 		)}
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content={appConfig.xHandle}>
 		<meta name="twitter:creator" content={appConfig.xHandle}>
-		<meta name="twitter:title" content={content.title}>
-		<meta name="twitter:description" content={content.description}>
+		<meta name="twitter:title" content={title}>
+		<meta name="twitter:description" content={description}>
 		<meta name="twitter:image" content={ogImage}>
 		<meta name="twitter:image:alt" content={ogImageAlt}>
 		<link rel="icon" href="/favicon.ico">
@@ -125,7 +132,7 @@ const jsonLdHtml = JSON.stringify({
 			href="/rss.xml"
 		>
 		<script type="application/ld+json" set:html={jsonLdHtml} />
-		<title>{content.title}</title>
+		<title>{title}</title>
 		<!-- mode toggle -->
 		<script is:inline>
 		const getThemePreference = () => {

@@ -1,20 +1,15 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import dayjs from "dayjs";
 import { Calendar, RefreshCcw } from "lucide-react";
+import { getPostStaticPaths, type Post } from "@/lib/posts";
 import Prose from "../../components/prose.astro";
 import Toc from "../../components/toc";
 import Layout from "../../layouts/main.astro";
 
-export async function getStaticPaths() {
-	const posts = await getCollection("blog");
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
-}
+export const getStaticPaths = getPostStaticPaths;
 
-type Props = CollectionEntry<"blog">;
+type Props = Post;
 
 const post = Astro.props;
 const { Content, headings } = await render(post);

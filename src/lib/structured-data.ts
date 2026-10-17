@@ -1,4 +1,4 @@
-import type { CollectionEntry } from "astro:content";
+import type { Post } from "@/lib/posts";
 import { appConfig } from "@/shared/app.config";
 
 type Ref = { "@id": string };
@@ -58,7 +58,7 @@ interface Options {
 	url: URL;
 	ogImage: URL;
 	/** 記事ページのときだけ渡す */
-	article?: CollectionEntry<"blog">;
+	article?: Post;
 }
 
 /** ページに埋め込む JSON-LD を、そのまま <script> に入れられる文字列で返す */

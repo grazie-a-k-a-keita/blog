@@ -4,11 +4,13 @@ import { getSortedPosts, postUrl } from "@/lib/posts";
 import { appConfig } from "@/shared/app.config";
 
 export const GET: APIRoute = async ({ site }) => {
+	if (!site) throw new Error("astro.config の site が未設定です");
+
 	const posts = await getSortedPosts();
 	return rss({
 		title: appConfig.title,
 		description: appConfig.description,
-		site: site ?? appConfig.siteUrl,
+		site,
 		items: posts.map((post) => ({
 			title: post.data.title,
 			description: post.data.description,

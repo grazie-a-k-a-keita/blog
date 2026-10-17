@@ -15,12 +15,11 @@ const externalLinks = [
 ---
 
 <header
-	class="bg-accent/50 fixed top-8 left-1/2 z-50 flex w-fit items-center gap-4 -translate-x-1/2 rounded-full px-6 py-4 backdrop-blur"
+	class="bg-accent/50 fixed top-8 left-1/2 z-50 flex w-fit -translate-x-1/2 items-center gap-4 rounded-full px-6 py-4 backdrop-blur"
 >
 	<nav aria-label="グローバル" class="flex items-center gap-4">
 		<a
 			href="/"
-			aria-label="GrazieHub トップページ"
 			class={cn(
 				buttonVariants({
 					size: "icon",
@@ -29,7 +28,11 @@ const externalLinks = [
 				}),
 				"rounded-full",
 			)}
-			><Image src={Logo} class="size-10 rounded-full" alt="" /></a
+			><Image
+				src={Logo}
+				class="size-10 rounded-full"
+				alt="GrazieHub トップページ"
+			/></a
 		>
 		<a
 			href="/blog/"

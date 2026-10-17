@@ -42,6 +42,8 @@ export default defineConfig({
 		}),
 	},
 	site: appConfig.siteUrl,
+	// Cloudflare Pages は /foo を /foo/ へ 308 リダイレクトするため、URL は常に末尾スラッシュ付きに揃える
+	trailingSlash: "always",
 	integrations: [
 		react(),
 		sitemap(),

@@ -1,55 +1,37 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
-import dayjs from "dayjs";
+import { render } from "astro:content";
 import { Calendar, RefreshCcw } from "lucide-react";
-import { appConfig } from "@/shared/app.config";
+import { getPostStaticPaths, type Post } from "@/lib/posts";
+import PostDate from "../../components/post-date.astro";
 import Prose from "../../components/prose.astro";
 import Toc from "../../components/toc";
 import Layout from "../../layouts/main.astro";
 
-export async function getStaticPaths() {
-	const posts = await getCollection("blog");
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
-}
+export const getStaticPaths = getPostStaticPaths;
 
-type Props = CollectionEntry<"blog">;
+type Props = Post;
 
 const post = Astro.props;
 const { Content, headings } = await render(post);
 ---
 
-<Layout
-	content={{
-		title: `${post.data.title} | ${appConfig.title}`,
-		description: post.data.description,
-		type: "article",
-		publishedTime: post.data.pubDate.toISOString(),
-		modifiedTime: post.data.updatedDate?.toISOString(),
-	}}
->
+<Layout article={post}>
 	<article class="space-y-16">
-		<div class="space-y-8 text-center">
+		<header class="space-y-8 text-center">
 			<h1 class="text-2xl font-bold">{post.data.title}</h1>
-			<div class="text-muted-foreground flex items-center justify-center gap-6">
-				<div class="flex items-center gap-2">
-					{post.data.updatedDate !== undefined ? (
-						<RefreshCcw className="size-4" />
-					) : (
-						<Calendar className="size-4" />
-					)}
-					<p class="text-muted-foreground font-mono">
-						{dayjs(
-							post.data.updatedDate !== undefined
-								? post.data.updatedDate
-								: post.data.pubDate,
-						).format("YYYY-MM-DD")}
-					</p>
-				</div>
+			<div
+				class="text-muted-foreground flex flex-wrap items-center justify-center gap-6 font-mono"
+			>
+				<PostDate date={post.data.pubDate} label="公開日" icon={Calendar} />
+				{post.data.updatedDate !== undefined && (
+					<PostDate
+						date={post.data.updatedDate}
+						label="更新日"
+						icon={RefreshCcw}
+					/>
+				)}
 			</div>
-		</div>
+		</header>
 		<Prose>
 			<Toc headings={headings} />
 			<hr>

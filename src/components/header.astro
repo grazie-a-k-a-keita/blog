@@ -7,52 +7,57 @@ import { appConfig } from "@/shared/app.config";
 import GitHubIcon from "../asset/GitHub_light.svg";
 import Logo from "../asset/logo.png";
 import XIcon from "../asset/x.svg";
+
+const externalLinks = [
+	{ label: "GitHub", href: appConfig.repositoryUrl, Icon: GitHubIcon },
+	{ label: "X", href: appConfig.author.x.url, Icon: XIcon },
+];
 ---
 
 <header
 	class="bg-accent/50 fixed top-8 left-1/2 z-50 flex w-fit -translate-x-1/2 items-center gap-4 rounded-full px-6 py-4 backdrop-blur"
 >
-	<a
-		title="logo"
-		href="/"
-		class={cn(
-			buttonVariants({
-				size: "icon",
-				variant: "ghost",
-				className: "size-10",
-			}),
-			"rounded-full",
-		)}
-		><Image src={Logo} class="size-10 rounded-full" alt="Logo" /></a
-	>
-	<a
-		href="/blog"
-		class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}
-		>blog</a
-	>
-	<a
-		title="github"
-		href={appConfig.gitHubUrl}
-		rel="noreferrer"
-		target="_blank"
-		class={cn(
-			buttonVariants({ variant: "ghost", size: "icon" }),
-			"rounded-full",
-		)}
-	>
-		<GitHubIcon class="size-4 dark:invert" width={16} height={16} />
-	</a>
-	<a
-		title="x"
-		href={appConfig.xUrl}
-		rel="noreferrer"
-		target="_blank"
-		class={cn(
-			buttonVariants({ variant: "ghost", size: "icon" }),
-			"rounded-full",
-		)}
-	>
-		<XIcon class="size-4 dark:invert" width={16} height={16} />
-	</a>
+	<nav aria-label="グローバル" class="flex items-center gap-4">
+		<a
+			href="/"
+			class={cn(
+				buttonVariants({
+					size: "icon",
+					variant: "ghost",
+					className: "size-10",
+				}),
+				"rounded-full",
+			)}
+			><Image
+				src={Logo}
+				class="size-10 rounded-full"
+				alt="GrazieHub トップページ"
+			/></a
+		>
+		<a
+			href="/blog/"
+			class={cn(buttonVariants({ variant: "ghost" }), "rounded-full")}
+			>blog</a
+		>
+		{externalLinks.map(({ label, href, Icon }) => (
+			<a
+				aria-label={`${label}（新しいタブで開く）`}
+				href={href}
+				rel="noopener noreferrer"
+				target="_blank"
+				class={cn(
+					buttonVariants({ variant: "ghost", size: "icon" }),
+					"rounded-full",
+				)}
+			>
+				<Icon
+					aria-hidden="true"
+					class="size-4 dark:invert"
+					width={16}
+					height={16}
+				/>
+			</a>
+		))}
+	</nav>
 	<ModeToggle client:load />
 </header>

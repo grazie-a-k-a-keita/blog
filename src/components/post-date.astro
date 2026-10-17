@@ -1,0 +1,20 @@
+---
+import type { LucideIcon } from "lucide-react";
+import { formatDate } from "@/lib/date";
+
+interface Props {
+	date: Date;
+	/** スクリーンリーダー向けのラベル（例: 公開日） */
+	label: string;
+	icon: LucideIcon;
+}
+
+const { date, label, icon: Icon } = Astro.props;
+const formatted = formatDate(date);
+---
+
+<p class="flex items-center gap-2">
+	<Icon className="size-4" aria-hidden="true" />
+	<span class="sr-only">{label}</span>
+	<time datetime={formatted}>{formatted}</time>
+</p>

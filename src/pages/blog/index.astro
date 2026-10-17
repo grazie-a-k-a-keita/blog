@@ -1,34 +1,36 @@
 ---
 import "../../styles/global.css";
-import { getCollection } from "astro:content";
-import dayjs from "dayjs";
+import { formatDate } from "@/lib/date";
+import { getSortedPosts, postUrl } from "@/lib/posts";
 import { appConfig } from "@/shared/app.config";
 import Layout from "../../layouts/main.astro";
 
-const posts = (await getCollection("blog")).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = await getSortedPosts();
+const description = "勉強したことや日々思ったことを不定期で更新していきます。";
 ---
 
-<Layout
-	content={{ title: `blog | ${appConfig.title}`, description: "ブログ一覧" }}
->
+<Layout title={`blog | ${appConfig.title}`} description={description}>
 	<section class="space-y-8">
 		<h1 class="text-xl font-bold">blog</h1>
-		<p>勉強したことや日々思ったことを不定期で更新していきます。</p>
+		<p>{description}</p>
 		<ul class="list-outside list-disc space-y-3">
 			{posts.map((post) => (
 				<li class="ms-6">
 					<article>
-						<a
-							href={`/blog/${post.id}`}
-							class="text-foreground/50 hover:text-foreground transition-colors hover:underline hover:bg-primary/10 decoration-primary underline-offset-4"
+						<h2 class="inline font-normal">
+							<a
+								href={postUrl(post)}
+								class="text-foreground/50 hover:text-foreground transition-colors hover:underline hover:bg-primary/10 decoration-primary underline-offset-4"
+							>
+								{post.data.title}
+							</a>
+						</h2>
+						<time
+							datetime={formatDate(post.data.pubDate)}
+							class="text-foreground/50 font-mono"
 						>
-							{post.data.title}
-							<span class="font-mono">
-								{dayjs(post.data.pubDate).format("（YYYY-MM-DD）")}
-							</span>
-						</a>
+							（{formatDate(post.data.pubDate)}）
+						</time>
 					</article>
 				</li>
 			))}
